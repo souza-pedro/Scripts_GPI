@@ -460,3 +460,8 @@ session.findById("wnd[1]/tbar[0]/btn[13]").press
 session.findById("wnd[1]/usr/btnSOFORT_PUSH").press
 session.findById("wnd[1]/tbar[0]/btn[0]").press
 session.findById("wnd[1]/tbar[0]/btn[11]").press
+
+'Fechar e abrir Jobs Proprios
+
+session.findById("wnd[0]/tbar[0]/btn[3]").press
+session.findById("wnd[0]/mbar/menu[4]/menu[9]").select
