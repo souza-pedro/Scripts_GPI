@@ -1,4 +1,4 @@
-
+﻿
 
 'Script para programar os indicadores INOLSI-OK  INNLOE-OK NOTAPEND ORDEMSEMPE BACKLOG IP24
 
@@ -432,6 +432,7 @@ session.findById("wnd[1]/usr/tabsTAB_STRIP/tabpSIVA/ssubSCREEN_HEADER:SAPLALDB:3
 session.findById("wnd[1]/usr/tabsTAB_STRIP/tabpSIVA/ssubSCREEN_HEADER:SAPLALDB:3010/tblSAPLALDBSINGLE/ctxtRSCSEL_255-SLOW_I[1,7]").text = "z30"
 session.findById("wnd[1]/usr/tabsTAB_STRIP/tabpSIVA/ssubSCREEN_HEADER:SAPLALDB:3010/tblSAPLALDBSINGLE/ctxtRSCSEL_255-SLOW_I[1,7]").caretPosition = 3
 session.findById("wnd[1]/tbar[0]/btn[8]").press
+session.findById("wnd[0]/usr/ctxtVARIANT").text = "/MD_ENG"
 
 
 'IP24 Background

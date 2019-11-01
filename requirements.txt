@@ -1,0 +1,7 @@
+pandas
+win32com.client
+sys
+datetime
+os
+xlwings
+numpy
