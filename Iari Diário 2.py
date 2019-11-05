@@ -3,6 +3,7 @@
 # -Includes--------------------------------------------------------------
 import sys
 import win32com.client
+from win32com.client import Dispatch
 import datetime
 import os
 import pandas as pd
@@ -66,9 +67,21 @@ def main():
     session.findById("wnd[1]/usr/ctxtDY_FILENAME").text = nome_file
     # input("Press key...")
     # session.findById("wnd[1]/usr/ctxtDY_FILENAME").caretPosition = 13
-    session.findById("wnd[1]/tbar[0]/btn[0]").press()
-    input("Feche o Excel para continuar...")
     c_arquivo = os.path.join(c_pasta, nome_file)
+
+
+    session.findById("wnd[1]/tbar[0]/btn[0]").press()
+
+    input("Continuar irá fechar todas as instâncias do excel...")
+
+    # Find Excel session and closes ALL OF THEM (https://stackoverflow.com/questions/6337595/python-win32-com-closing
+    # -excel-workbook)
+    excel = Dispatch("Excel.Application")
+    excel.Visible = False
+
+    # without saving
+    map(lambda book: book.Close(False), excel.Workbooks)
+    excel.Quit()
 
     print(c_arquivo)
 

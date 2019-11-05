@@ -5,6 +5,8 @@ import sys
 import win32com.client
 import datetime
 import os
+import pandas as pd
+import numpy as np
 
 # -Caminho da pasta de Salvamento
 c_pasta = r"V:\COMPARTILHADO_CSC-SSE_NSIF\NP-2\GPI\4 - Apoio Administrativo\4.4 - Monte Albuquerque\Desenvolvimento" \
