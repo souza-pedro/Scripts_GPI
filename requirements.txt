@@ -5,3 +5,6 @@ datetime
 os
 xlwings
 numpy
+xlrd
+xlwt
+openpyxl

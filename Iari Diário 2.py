@@ -62,7 +62,7 @@ def main():
     # data = datetime.datetime.today()
     session.findById("wnd[1]/tbar[0]/btn[0]").press()
     session.findById("wnd[1]/usr/ctxtDY_PATH").text = c_pasta
-    nome_file = datetime.datetime.today().strftime("%y%m%d") + ".XLSX"
+    nome_file = datetime.datetime.today().strftime("%y%m%d") + ".xlsx"
     session.findById("wnd[1]/usr/ctxtDY_FILENAME").text = nome_file
     # input("Press key...")
     # session.findById("wnd[1]/usr/ctxtDY_FILENAME").caretPosition = 13
@@ -84,9 +84,12 @@ def main():
                                                              False))))
     dados['Prazo_medida'] = dados['Data de criação'] + dados['tipo_nota']
     dados['No_prazo?'] = np.where(dados['Prazo_medida'] >= pd.Timestamp('today'), "OK", "Em Atraso")
-    nome_file = "IARI Diário " + datetime.datetime.today().strftime("%y-%m-%d") + ".XLSX"
+    nome_file = "IARI Diário " + datetime.datetime.today().strftime("%y-%m-%d") + ".xlsx"
     c_file = os.path.join(c_pasta, nome_file)
-    dados.to_excel(c_file)
+    # Correções -  formatar data de criação, centro de localização como texto,  formatar Prazo_medida
+    # Realizados: tirar coluna tipo_nota, tirar index,
+    dados = dados.drop('tipo_nota', axis=1)
+    dados.to_excel(c_file, index= False)
 
 
 
