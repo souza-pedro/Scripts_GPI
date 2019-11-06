@@ -12,6 +12,8 @@ import numpy as np
 # -Caminho da pasta de Salvamento
 c_pasta = r"V:\COMPARTILHADO_CSC-SSE_NSIF\NP-2\GPI\4 - Apoio Administrativo\4.4 - Monte Albuquerque\Desenvolvimento" \
           r"\Pedro\Pycharm\IARI Diário"
+nome_file = datetime.datetime.today().strftime("%y%m%d") + ".xlsx"
+c_arquivo = os.path.join(c_pasta, nome_file)
 
 
 # -Sub Main--------------------------------------------------------------
@@ -60,17 +62,17 @@ def main():
     session.findById("wnd[0]/usr/cntlGRID1/shellcont/shell").contextMenu()
     session.findById("wnd[0]/usr/cntlGRID1/shellcont/shell").selectContextMenuItem("&XXL")
 
-    # data = datetime.datetime.today()
     session.findById("wnd[1]/tbar[0]/btn[0]").press()
     session.findById("wnd[1]/usr/ctxtDY_PATH").text = c_pasta
-    nome_file = datetime.datetime.today().strftime("%y%m%d") + ".xlsx"
     session.findById("wnd[1]/usr/ctxtDY_FILENAME").text = nome_file
-    # input("Press key...")
-    # session.findById("wnd[1]/usr/ctxtDY_FILENAME").caretPosition = 13
-    c_arquivo = os.path.join(c_pasta, nome_file)
 
+    if os.path.exists(c_arquivo):
+        session.findById("wnd[1]/tbar[0]/btn[11]").press()
+        print('Substituido arquivo em ' + c_arquivo)
+    else:
+        session.findById("wnd[1]/tbar[0]/btn[0]").press()
+        print("criado arquivo em " + c_arquivo)
 
-    session.findById("wnd[1]/tbar[0]/btn[0]").press()
 
     input("Continuar irá fechar todas as instâncias do excel...")
 
@@ -89,11 +91,11 @@ def main():
     # Início do tratamento do excel
     dados = pd.read_excel(c_arquivo)
     dados.info()
-    dados['tipo_nota'] = np.where(dados['Código de medidas'] == "D", pd.DateOffset(days=360),
-                                  np.where(dados['Código de medidas'] == "C", pd.DateOffset(days=120),
-                                           np.where(dados['Código de medidas'] == "B", pd.DateOffset(days=90),
+    dados['tipo_nota'] = np.where(dados['Código de medidas'] == "D", pd.DateOffset(days=540),
+                                  np.where(dados['Código de medidas'] == "C", pd.DateOffset(days=360),
+                                           np.where(dados['Código de medidas'] == "B", pd.DateOffset(days=120),
                                                     np.where(dados['Código de medidas'] == "A",
-                                                             pd.DateOffset(days=30),
+                                                             pd.DateOffset(days=15),
                                                              False))))
     dados['Prazo_medida'] = dados['Data de criação'] + dados['tipo_nota']
     dados['No_prazo?'] = np.where(dados['Prazo_medida'] >= pd.Timestamp('today'), "OK", "Em Atraso")
