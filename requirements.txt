@@ -8,3 +8,4 @@ numpy
 xlrd
 xlwt
 openpyxl
+easygui
