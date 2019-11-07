@@ -110,6 +110,40 @@ Main()
 #-End-------------------------------------------------------------------
 
 
+def compara_excel():
+  import os
+  import win32com.client as win32
 
+  excel = win32.Dispatch("Excel.Application")
+  # DispatchEx creates a new instance,
+  # while Dispatch uses an existing one if one exists.
+
+  book_name = n_file
+  book_path = c_pasta + "\\" + book_name
+
+  wb = excel.Workbooks.Open(book_path)
+  ws = wb.Worksheets(1)
+
+  ws.Columns("A:A").Select
+  excel.Selection.Insert
+  excel.Shift = xlToRight
+  excel.Range("A2").Select
+  ws.ActiveCell.FormulaR1C1 = "=RC[3]&""/""&VALUE(RC[4])"
+  excel.Range("A2").Select
+  excel.Selection.AutoFill
+  ws.Destination := Range("A2:A72")
+  Range("A2:A72").Select
+
+  msoShapeOval = 9
+  ws.Shapes.AddShape(msoShapeOval, 270.75, 205.5, 10.0, 10.0).Select()
+  excel.Selection.ShapeRange.Fill.ForeColor.RGB = 255
+
+  wb.SaveAs(os.getcwd() + '/' + 'line-chart-2.xlsx')
+  excel.Quit()
+
+
+
+
+  compara_excel()
 
 
