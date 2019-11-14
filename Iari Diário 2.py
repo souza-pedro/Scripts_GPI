@@ -44,6 +44,8 @@ def main():
 
     # >Insert your SAP GUI Scripting code here<
     # session.findById("wnd[0]").maximize()
+    nome_file = datetime.datetime.today().strftime("%y%m%d") + ".xlsx"
+    c_arquivo = os.path.join(c_pasta, nome_file)
     session.findById("wnd[0]/tbar[0]/okcd").text = "iw67"
     session.findById("wnd[0]").sendVKey(0)
     session.findById("wnd[0]/usr/ctxtQMART-LOW").text = "zr"
