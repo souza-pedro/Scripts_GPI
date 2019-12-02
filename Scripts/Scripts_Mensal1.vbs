@@ -1,8 +1,6 @@
-Ôªø
-
 'Script para programar os indicadores INOLSI-OK  INNLOE-OK NOTAPEND ORDEMSEMPE BACKLOG IP24
 
-'Cabe√ßalho. Inciar com uma √∫nica janela aberta no SAP
+'Cabecalho. Inciar com uma unica janela aberta no SAP
 
 If Not IsObject(application) Then
    Set SapGuiAuto  = GetObject("SAPGUI")
@@ -45,7 +43,7 @@ session.findById("wnd[0]/usr/ctxtVARIANT").setFocus
 session.findById("wnd[0]/usr/ctxtVARIANT").caretPosition = 6
 session.findById("wnd[0]").sendVKey 0
 
-'Programa√ß√£o em BackGround INNLOE
+'ProgramaÁ„o em BackGround INNLOE
 
 session.findById("wnd[0]/mbar/menu[0]/menu[2]").select
 session.findById("wnd[1]/usr/ctxtPRI_PARAMS-PDEST").text = "mail"
@@ -75,7 +73,7 @@ session.findById("wnd[1]/usr/btnSOFORT_PUSH").press
 session.findById("wnd[1]/tbar[0]/btn[0]").press
 session.findById("wnd[1]/tbar[0]/btn[11]").press
 
-'Voltar √† pagina Inicial
+'Voltar ‡ pagina Inicial
 
 session.findById("wnd[0]/tbar[0]/btn[3]").press
 
@@ -106,7 +104,7 @@ session.findById("wnd[0]/usr/ctxtVARIANT").text = "/INOLSIBMVM"
 session.findById("wnd[0]/usr/ctxtVARIANT").setFocus
 session.findById("wnd[0]/usr/ctxtVARIANT").caretPosition = 11
 
-'Programa√ß√£o INOLSI
+'ProgramaÁ„o INOLSI
 
 session.findById("wnd[0]/usr/ctxtVARIANT").text = "/INOLSIBMVM"
 session.findById("wnd[0]/mbar/menu[0]/menu[2]").select
@@ -135,7 +133,7 @@ session.findById("wnd[1]/usr/btnSOFORT_PUSH").press
 session.findById("wnd[1]/tbar[0]/btn[0]").press
 session.findById("wnd[1]/tbar[0]/btn[11]").press 
 
-'Voltar √† pagina Inicial
+'Voltar ‡ pagina Inicial
 
 session.findById("wnd[0]/tbar[0]/btn[3]").press
 
@@ -166,7 +164,7 @@ session.findById("wnd[0]/usr/ctxtP_VARI").setFocus
 session.findById("wnd[0]/usr/ctxtP_VARI").caretPosition = 6
 
 
-'NOTAPEND Programa√ß√£o
+'NOTAPEND ProgramaÁ„o
 
 session.findById("wnd[0]/usr/ctxtP_VARI").text = "/MDENG"
 session.findById("wnd[0]/mbar/menu[0]/menu[2]").select
@@ -194,7 +192,7 @@ session.findById("wnd[1]/usr/btnSOFORT_PUSH").press
 session.findById("wnd[1]/tbar[0]/btn[0]").press
 session.findById("wnd[1]/tbar[0]/btn[11]").press
 
-'Voltar √† pagina Inicial
+'Voltar ‡ pagina Inicial
 
 session.findById("wnd[0]/tbar[0]/btn[3]").press
 
@@ -255,7 +253,7 @@ session.findById("wnd[1]/usr/btnSOFORT_PUSH").press
 session.findById("wnd[1]/tbar[0]/btn[0]").press
 session.findById("wnd[1]/tbar[0]/btn[11]").press
 
-'Voltar √† pagina Inicial
+'Voltar ‡ pagina Inicial
 
 session.findById("wnd[0]/tbar[0]/btn[3]").press
 
@@ -306,7 +304,7 @@ session.findById("wnd[1]/usr/btnSOFORT_PUSH").press
 session.findById("wnd[1]/tbar[0]/btn[0]").press
 session.findById("wnd[1]/tbar[0]/btn[11]").press
 
-'Voltar √† pagina Inicial
+'Voltar ‡ pagina Inicial
 
 session.findById("wnd[0]/tbar[0]/btn[3]").press
 
@@ -372,11 +370,11 @@ session.findById("wnd[1]/usr/btnSOFORT_PUSH").press
 session.findById("wnd[1]/tbar[0]/btn[0]").press
 session.findById("wnd[1]/tbar[0]/btn[11]").press
 
-'Voltar √† pagina Inicial
+'Voltar ‡ pagina Inicial
 
 session.findById("wnd[0]/tbar[0]/btn[3]").press
 
-'IP24 - Sele√ß√£o dos itens
+'IP24 - SeleÁ„o dos itens
 session.findById("wnd[0]/tbar[0]/okcd").text = "ip24"
 session.findById("wnd[0]").sendVKey 0
 session.findById("wnd[0]/usr/ctxtAUART-LOW").setFocus
@@ -464,5 +462,5 @@ session.findById("wnd[1]/tbar[0]/btn[11]").press
 
 'Fechar e abrir Jobs Proprios
 
-session.findById("wnd[0]/tbar[0]/btn[3]").press
-session.findById("wnd[0]/mbar/menu[4]/menu[9]").select
+'session.findById("wnd[0]/tbar[0]/btn[3]").press
+'session.findById("wnd[0]/mbar/menu[4]/menu[9]").select
