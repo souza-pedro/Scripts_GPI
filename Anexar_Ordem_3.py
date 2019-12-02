@@ -96,7 +96,7 @@ def lista_ordens_clipboard(lista, retorno):
 
 
 
-def anexar_SAP():
+def anexar_SAP(c_origem, ordens):
     import sys
     import win32com.client
 
@@ -153,7 +153,7 @@ def anexar_SAP():
         session.findById("wnd[0]/shellcont/shell").pressContextButton("CREATE_ATTA")
         session.findById("wnd[0]/shellcont/shell").selectContextMenuItem("PCATTA_CREA")
         session.findById("wnd[1]").sendVKey(4)
-        session.findById("wnd[2]/usr/ctxtDY_PATH").text =
+        session.findById("wnd[2]/usr/ctxtDY_PATH").text = c_origem
         session.findById("wnd[2]/usr/ctxtDY_FILENAME").text = "2018283469_12-11-19_OPER-10_C.jpg"
         session.findById("wnd[2]/usr/ctxtDY_FILENAME").caretPosition = 33
         session.findById("wnd[2]").sendVKey(0)
