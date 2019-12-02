@@ -111,7 +111,7 @@ def escolher_pasta(c_origem, c_destino):
 escolher_pasta()
 
 
-def Lista_Ordens(c_origem)
+def Lista_Ordens(c_origem):
 
 #Transformando Nomes dos aquivos em lista de Ordens.
 #Nome do arquivo deve estar no formato XXXXXXXXXX_xx-xx-xx_OPER-XX_C (Nº Ordem_dia-mes_ano_OPER-Nº Oper_C)
