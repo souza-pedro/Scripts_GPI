@@ -68,9 +68,6 @@ def escolher_pasta():
             choice = ""  # user chose cancel
 
 
-
-
-
 def lista_ordens_clipboard(lista, retorno):
     # Transformando Nomes dos aquivos em lista de Ordens.
     # Nome do arquivo deve estar no formato XXXXXXXXXX_xx-xx-xx_OPER-XX_C (Nº Ordem_dia-mes_ano_OPER-Nº Oper_C)
@@ -94,9 +91,16 @@ def lista_ordens_clipboard(lista, retorno):
     return lista, ordens
 
 
+def copiar_destino(c_origem, c_destino, arquivo):
+    import shutil
+    c_arquivo = os.path.join(c_origem, arquivo)
+    shutil.copy(c_arquivo, c_destino)
+    c_arquivo_dest = os.path.join(c_destino, arquivo)
+    os.
+    os.rename(c_arquivo_dest,)
 
-
-def anexar_SAP(c_origem, ordens):
+# -Sub anexar SAP--------------------------------------------------------------
+def anexar_sap(c_origem, ordens):
     import sys
     import win32com.client
 
@@ -104,64 +108,62 @@ def anexar_SAP(c_origem, ordens):
 
         SapGuiAuto = win32com.client.GetObject("SAPGUI")
         if not type(SapGuiAuto) == win32com.client.CDispatch:
-          return
+            return
 
         application = SapGuiAuto.GetScriptingEngine
         if not type(application) == win32com.client.CDispatch:
-          SapGuiAuto = None
-          return
+            SapGuiAuto = None
+            return
 
         connection = application.Children(0)
         if not type(connection) == win32com.client.CDispatch:
-          application = None
-          SapGuiAuto = None
-          return
+            application = None
+            SapGuiAuto = None
+            return
 
         session = connection.Children(0)
         if not type(session) == win32com.client.CDispatch:
-          connection = None
-          application = None
-          SapGuiAuto = None
-          return
+            connection = None
+            application = None
+            SapGuiAuto = None
+            return
 
-        #>Insert your SAP GUI Scripting code here<
-        session.findById("wnd[0]/tbar[0]/okcd").text = "iw38"
+        # >Insert your SAP GUI Scripting code here<
+        # Pela IW33
+        # session.findById("wnd[0]").resizeWorkingPane(95, 25, 0)
+        session.findById("wnd[0]/tbar[0]/okcd").text = "iw33"
         session.findById("wnd[0]").sendVKey(0)
-        session.findById("wnd[0]/usr/chkDY_MAB").selected = -1
-        session.findById("wnd[0]/usr/chkDY_MAB").setFocus()
-        session.findById("wnd[0]/usr/btn%_AUFNR_%_APP_%-VALU_PUSH").press()
-        session.findById("wnd[0]/usr/ctxtAUART-LOW").text = "*"
-        session.findById("wnd[0]/usr/ctxtAUART-LOW").caretPosition = 1
-        session.findById("wnd[0]").sendVKey(0)
-        session.findById("wnd[0]/usr/ctxtIWERK-LOW").text = "0105"
-        session.findById("wnd[0]/usr/ctxtIWERK-LOW").caretPosition = 4
-        session.findById("wnd[0]").sendVKey(0)
-        session.findById("wnd[0]/usr/ctxtINGPR-LOW").text = "*"
-        session.findById("wnd[0]/usr/ctxtINGPR-LOW").caretPosition = 1
-        session.findById("wnd[0]").sendVKey(0)
-        session.findById("wnd[1]/tbar[0]/btn[24]").press()
-        session.findById("wnd[1]/tbar[0]/btn[8]").press()
-        session.findById("wnd[0]/usr/ctxtVARIANT").text = "/ordem"
-        session.findById("wnd[0]/usr/ctxtVARIANT").setFocus()
-        session.findById("wnd[0]/usr/ctxtVARIANT").caretPosition = 6
-        session.findById("wnd[0]").sendVKey(0)
-        session.findById("wnd[0]/tbar[1]/btn[8]").press()
-        session.findById("wnd[0]/usr/cntlGRID1/shellcont/shell").setCurrentCell(-1, "")
-        session.findById("wnd[0]/usr/cntlGRID1/shellcont/shell").selectAll()
-        session.findById("wnd[0]/tbar[1]/btn[42]").press()
-        session.findById("wnd[0]/titl/shellcont/shell").pressButton("%GOS_TOOLBOX")
-        session.findById("wnd[0]/shellcont/shell").pressContextButton("CREATE_ATTA")
-        session.findById("wnd[0]/shellcont/shell").selectContextMenuItem("PCATTA_CREA")
-        session.findById("wnd[1]").sendVKey(4)
-        session.findById("wnd[2]/usr/ctxtDY_PATH").text = c_origem
-        session.findById("wnd[2]/usr/ctxtDY_FILENAME").text = "2018283469_12-11-19_OPER-10_C.jpg"
-        session.findById("wnd[2]/usr/ctxtDY_FILENAME").caretPosition = 33
-        session.findById("wnd[2]").sendVKey(0)
-        session.findById("wnd[1]/tbar[0]/btn[0]").press()
-        session.findById("wnd[0]/tbar[0]/btn[11]").press()
-        session.findById("wnd[1]/usr/btnSPOP-OPTION2").press()
-        session.findById("wnd[0]/tbar[0]/btn[15]").press()
-        session.findById("wnd[1]/usr/btnSPOP-VAROPTION2").press()
+
+        for i in range(1, len(ordens)):
+            ordem = ordens[0]
+            session.findById("wnd[0]/usr/ctxtCAUFVD-AUFNR").text = ordem[i]
+            print("Abriu ordem " + ordem[i])
+            session.findById("wnd[0]/usr/ctxtCAUFVD-AUFNR").caretPosition = 10
+            session.findById("wnd[0]").sendVKey(0)
+            session.findById("wnd[0]/titl/shellcont/shell").pressButton("%GOS_TOOLBOX")
+            session.findById("wnd[0]/shellcont/shell").pressContextButton("CREATE_ATTA")
+            session.findById("wnd[0]/shellcont/shell").selectContextMenuItem("PCATTA_CREA")
+            for f_name in os.listdir(c_origem):
+                if f_name.startswith(ordem[i]):
+                    f_nome = f_name
+                    print("Anexou arquivo " + f_name)
+            session.findById("wnd[1]/usr/ctxtDY_PATH").text = c_origem
+            session.findById("wnd[1]/usr/ctxtDY_FILENAME").text = f_nome
+            session.findById("wnd[1]/usr/ctxtDY_FILENAME").caretPosition = 33
+            session.findById("wnd[1]/tbar[0]/btn[0]").press()
+            session.findById("wnd[0]/shellcont").close()
+            print("Anexou arquivo " + f_name)
+            # session.findById("wnd[0]/tbar[0]/btn[3]").press() #voltar
+            try:
+                session.findById("wnd[0]/tbar[0]/btn[11]").press()  # Salvar
+                # print("tentou sair")
+                session.findById("wnd[0]/tbar[0]/btn[3]").press()  # voltar
+                # print("tentou voltar")
+            except:
+                session.findById("wnd[0]/tbar[0]/btn[3]").press()
+                print("voltou simples")
+        session.findById("wnd[0]/tbar[0]/btn[3]").press()  # voltar
+
     except:
         print(sys.exc_info()[0])
 
@@ -172,23 +174,27 @@ def anexar_SAP(c_origem, ordens):
         SapGuiAuto = None
 
 
-
-
-
 def main():
     # Escolhe a pasta padrão
     (c_origem, c_destino) = escolher_pasta()
-
-
-    # Copia Nº de Ordens da pasta para o clipboard
-    lista_ordens_clipboard(c_origem, ordens)
-
-    #Anexar no SAP
-    anexar_SAP(c_origem, ordens)
-
-    print(c_origem)
-    print("Fim do programa")
     print("Pasta de Origem " + c_origem)
     print("Pasta destino " + c_destino)
+    print("____________________________________________")
+
+    # Copia Nº de Ordens da pasta para o clipboard
+    (c_origem, ordens) = lista_ordens_clipboard(c_origem, "")
+    # print("C_origem " + c_origem)
+    print("Lista de Ordens:")
+    print(ordens)
+    print("____________________________________________")
+
+    # Anexar no SAP
+    anexar_sap(c_origem, ordens)
+
+    # print(c_origem)
+    print("Fim do programa")
+    # print("Pasta de Origem " + c_origem)
+    # print("Pasta destino " + c_destino)
+
 
 main()
