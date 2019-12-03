@@ -86,7 +86,7 @@ def lista_ordens_clipboard(lista, retorno):
 
     # Ordens = c
     ordens = pd.DataFrame(c)
-    ordens.to_clipboard(index=False, header=False)
+    #ordens.to_clipboard(index=False, header=False)
 
     return lista, ordens
 
@@ -96,11 +96,13 @@ def copiar_destino(c_origem, c_destino, arquivo):
     c_arquivo = os.path.join(c_origem, arquivo)
     shutil.copy(c_arquivo, c_destino)
     c_arquivo_dest = os.path.join(c_destino, arquivo)
-    os.
-    os.rename(c_arquivo_dest,)
+    novonome = arquivo[:str.find(arquivo, ".") - 1] + "_OK" + arquivo[str.find(arquivo, "."):]
+    os.rename(c_arquivo_dest, novonome)
+    print("Copiado para OK arquivo " + novonome)
+
 
 # -Sub anexar SAP--------------------------------------------------------------
-def anexar_sap(c_origem, ordens):
+def anexar_sap(c_origem, c_destino, ordens):
     import sys
     import win32com.client
 
@@ -134,7 +136,7 @@ def anexar_sap(c_origem, ordens):
         session.findById("wnd[0]/tbar[0]/okcd").text = "iw33"
         session.findById("wnd[0]").sendVKey(0)
 
-        for i in range(1, len(ordens)):
+        for i in range(0, len(ordens)):
             ordem = ordens[0]
             session.findById("wnd[0]/usr/ctxtCAUFVD-AUFNR").text = ordem[i]
             print("Abriu ordem " + ordem[i])
@@ -143,16 +145,14 @@ def anexar_sap(c_origem, ordens):
             session.findById("wnd[0]/titl/shellcont/shell").pressButton("%GOS_TOOLBOX")
             session.findById("wnd[0]/shellcont/shell").pressContextButton("CREATE_ATTA")
             session.findById("wnd[0]/shellcont/shell").selectContextMenuItem("PCATTA_CREA")
-            for f_name in os.listdir(c_origem):
-                if f_name.startswith(ordem[i]):
-                    f_nome = f_name
-                    print("Anexou arquivo " + f_name)
+            lista = os.listdir(c_origem)
+
             session.findById("wnd[1]/usr/ctxtDY_PATH").text = c_origem
-            session.findById("wnd[1]/usr/ctxtDY_FILENAME").text = f_nome
+            session.findById("wnd[1]/usr/ctxtDY_FILENAME").text = lista[i]
             session.findById("wnd[1]/usr/ctxtDY_FILENAME").caretPosition = 33
             session.findById("wnd[1]/tbar[0]/btn[0]").press()
             session.findById("wnd[0]/shellcont").close()
-            print("Anexou arquivo " + f_name)
+            print("Anexou arquivo " + lista[i])
             # session.findById("wnd[0]/tbar[0]/btn[3]").press() #voltar
             try:
                 session.findById("wnd[0]/tbar[0]/btn[11]").press()  # Salvar
@@ -162,6 +162,8 @@ def anexar_sap(c_origem, ordens):
             except:
                 session.findById("wnd[0]/tbar[0]/btn[3]").press()
                 print("voltou simples")
+            copiar_destino(c_origem, c_destino, f_nome)
+
         session.findById("wnd[0]/tbar[0]/btn[3]").press()  # voltar
 
     except:
@@ -189,7 +191,7 @@ def main():
     print("____________________________________________")
 
     # Anexar no SAP
-    anexar_sap(c_origem, ordens)
+    anexar_sap(c_origem, c_destino, ordens)
 
     # print(c_origem)
     print("Fim do programa")

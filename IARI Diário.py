@@ -82,7 +82,7 @@ def main():
                                                                  False))))
         dados['Prazo_medida'] = dados['Data de criação'] + dados['tipo_nota']
         dados['No_prazo?'] = np.where(dados['Prazo_medida'] >= pd.Timestamp('today'), "OK", "Em Atraso")
-        nome_file = "IARI Diário " + datetime.datetime.today().strftime("%y-%m-%d") + ".XLSX"
+        nome_file = "IARI Diário " + datetime.datetime.today().strftime("%y-%m-%d") + ".xlsx"
         c_file = os.path.join(c_pasta, nome_file)
         dados.to_excel(c_file)
 
@@ -123,7 +123,7 @@ def format_excel(caminho, c_pasta):
                                                                  False))))
         dados['Prazo_medida'] = dados['Data de criação'] + dados['tipo_nota']
         dados['No_prazo?'] = np.where(dados['Prazo_medida'] >= pd.Timestamp('today'), "OK", "Em Atraso")
-        nome_file = "IARI Diário " + datetime.datetime.today().strftime("%y-%m-%d") + ".XLSX"
+        nome_file = "IARI Diário " + datetime.datetime.today().strftime("%y-%m-%d") + ".xlsx"
         c_file = os.path.join(c_pasta, nome_file)
         dados.to_excel(c_file)
 
