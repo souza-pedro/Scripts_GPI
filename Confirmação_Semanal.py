@@ -161,7 +161,7 @@ c_arquivo = os.path.join(c_sem, L)
 dados = pd.read_excel(c_arquivo, skiprows=5, sheet_name='Programação Semanal', convert_float=False, skip_blank_lines=True)
 dados.dropna(subset=['CONFIRMAÇÃO'], inplace=True)
 dados1 = dados.astype({"CONFIRMAÇÃO": "int32"})
-dados1["CONFIRMAÇÃO"].to_clipboard(excel=True, index=False)
+dados1["CONFIRMAÇÃO"].to_clipboard(excel=True, index=False, header=None)
 
 #Abrir SAp, IW37N, pegar só as ordens que estão aidna em aberto
 c_resultado = carrega_iw37()
