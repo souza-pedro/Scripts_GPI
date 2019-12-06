@@ -10,7 +10,7 @@ import pandas as pd
 import numpy as np
 
 # -Caminho da pasta de Salvamento
-c_pasta = r"V:\COMPARTILHADO_CSC-SSE_NSIF\NP-2\GPI\4 - Apoio Administrativo\4.4 - Monte Albuquerque\Desenvolvimento" \
+c_pasta = r"V:\COMPARTILHADO_CSC-SSE_NSIF\NP-2\GPI\4 - Apoio Administrativo\4.4 - Monte Albuquerque\Desenv" \
           r"\Pedro\Pycharm\IARI Diário"
 nome_file = datetime.datetime.today().strftime("%y%m%d") + ".xlsx"
 c_arquivo = os.path.join(c_pasta, nome_file)

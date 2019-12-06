@@ -9,3 +9,5 @@ xlrd
 xlwt
 openpyxl
 easygui
+selenium
+BeautifulSoup4
